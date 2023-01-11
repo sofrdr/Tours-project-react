@@ -7,6 +7,7 @@ body{
   line-height: 1.5;
   color: #102a42; 
   font-size: 1rem;
+  background: #f1f5f8;
 }
 
 main{

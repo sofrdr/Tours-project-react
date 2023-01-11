@@ -23,6 +23,17 @@ const Underline = styled.div`
   margin-right: auto;
 `;
 
+const ToursContainer = styled.div`
+  @media screen and (min-width: 768px) {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media screen and (min-width: 1100px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+`;
+
 const Tours = () => {
   const [tours, setTours] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +45,7 @@ const Tours = () => {
         "https://course-api.com/react-tours-project"
       );
       const data = await response.json();
-      data && setTours(data);
+      setTours(data);
     } catch (error) {
       console.log(error);
     }
@@ -51,12 +62,20 @@ const Tours = () => {
         <StyledTitle>our tours</StyledTitle>
         <Underline />
       </TitleContainer>
-      {tours.map((tour) => {
-        const { id, name, info, image, price } = tour;
-        return (
-          <Tour key={id} name={name} info={info} image={image} price={price} />
-        );
-      })}
+      <ToursContainer>
+        {tours.map((tour) => {
+          const { id, name, info, image, price } = tour;
+          return (
+            <Tour
+              key={id}
+              name={name}
+              info={info}
+              image={image}
+              price={price}
+            />
+          );
+        })}
+      </ToursContainer>
     </section>
   );
 };
