@@ -65,7 +65,22 @@ const DisplayButton = styled.button`
   padding-left: 0.25rem;
 `;
 
-const Tour = ({ name, info, image, price }) => {
+const InterestButton = styled.button`
+  display: block;
+  width: 200px;
+  margin: 1rem auto 0;
+  color: #bb2525;
+  letter-spacing: 0.1rem;
+  background: transparent;
+  border: 1px solid #bb2525;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  text-transform: capitalize;
+  font-size: 1rem;
+  cursor: pointer;
+`;
+
+const Tour = ({ id, name, info, image, price, deleteTour }) => {
   const [showAll, setShowAll] = useState(false);
 
   return (
@@ -86,6 +101,9 @@ const Tour = ({ name, info, image, price }) => {
         >
           {showAll ? "show less" : "read more"}
         </DisplayButton>
+        <InterestButton onClick={() => deleteTour(id)}>
+          not interested
+        </InterestButton>
       </InfoContainer>
     </TourContainer>
   );

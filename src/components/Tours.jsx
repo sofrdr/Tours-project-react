@@ -34,6 +34,20 @@ const ToursContainer = styled.div`
   }
 `;
 
+const RefreshButton = styled.button`
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background: #49a6e9;
+  border-radius: 0.25rem;
+  color: #fff;
+  text-transform: capitalize;
+  letter-spacing: 0.1rem;
+  border-color: transparent;
+  cursor: pointer;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+`;
+
 const Tours = () => {
   const [tours, setTours] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +70,29 @@ const Tours = () => {
     fetchData();
   }, []);
 
+  const deleteTour = (id) => {
+    const newTours = tours.filter((tour) => tour.id !== id);
+    setTours(newTours);
+  };
+
+  if (isLoading) {
+    return (
+      <section>
+        <Loading />
+      </section>
+    );
+  }
+
+  if (tours.length === 0) {
+    return (
+      <section>
+        <TitleContainer>
+          <StyledTitle>no tours left</StyledTitle>
+          <RefreshButton onClick={fetchData}>refresh</RefreshButton>
+        </TitleContainer>
+      </section>
+    );
+  }
   return (
     <section>
       <TitleContainer>
@@ -68,10 +105,12 @@ const Tours = () => {
           return (
             <Tour
               key={id}
+              id={id}
               name={name}
               info={info}
               image={image}
               price={price}
+              deleteTour={deleteTour}
             />
           );
         })}
